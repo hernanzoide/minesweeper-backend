@@ -4,9 +4,10 @@ from server import app
 from server import game
 from flask_cors import cross_origin
 
-@app.route("/minesweeper/board")
+@app.route("/minesweeper/initialize")
 @cross_origin()
-def initialize():
+def bord():
+    game.initialize()
     return jsonify(game.getPlayerInfo().toJson())
 
 @app.route("/minesweeper/<int:id>/open", methods=['POST'])

@@ -22,18 +22,19 @@ class PlayerBoard:
     def open(self,id,image):
         if not self.squares[id].open:
             self.remainingCells-=1
-            self.squares[id].image = image
             self.squares[id].open = True
+            self.squares[id].image = image
+            
 
     def flag(self,id):
-        if self.flags>=0:
+        if self.flags>0 and self.squares[id].image == 'square' :
             self.flags-=1
             self.squares[id].image = 'flag'
     
     def unflag(self,id):
         if self.squares[id].image == 'flag':
             self.flags+=1
-            self.squares[id].image = 'flag'
+            self.squares[id].image = 'square'
 
     def toJson(self):
         return json.dumps(self, default=lambda o: o.__dict__)
@@ -51,7 +52,7 @@ class Board():
         self.squares = []
         for x in range(self.size):
             self.squares.append(Square(x,'mine0'))
-        self.mineIndex = random.sample(range(0, 63), 9)
+        self.mineIndex = random.sample(range(0, self.size-1), 9)
         for i in self.mineIndex:
             self.squares[i] = Square(i,'mine')
         for x in range(self.size):
