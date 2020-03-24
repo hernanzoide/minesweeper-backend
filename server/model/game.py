@@ -9,9 +9,10 @@ class Game:
         self.gameOver = False
         self.board = Board(id)
         self.playerBoard = PlayerBoard(id)
-        Board.size = self.size * self.size
+        self.boardSize = self.size
+        Board.size = self.boardSize
         Board.maxMines = self.maxMines
-        PlayerBoard.size = self.size * self.size
+        PlayerBoard.size = self.size
         self.initialize()
 
     def initialize(self):
@@ -30,20 +31,20 @@ class Game:
     
     def recursivelyOpen(self,i):
         self.playerBoard.open(i,self.board.squares[i].image)
-        if (i-8>=0):
-            if not self.playerBoard.squares[i-8].open:
-                if self.board.squares[i-8].image == 'mine0':
-                    self.recursivelyOpen(i-8)
+        if (i-self.size>=0):
+            if not self.playerBoard.squares[i-self.size].open:
+                if self.board.squares[i-self.size].image == 'mine0':
+                    self.recursivelyOpen(i-self.size)
                 else:
-                    self.playerBoard.open(i-8,self.board.squares[i-8].image)
-        if (i+8<=63):
-            if not self.playerBoard.squares[i+8].open:
-                if self.board.squares[i+8].image == 'mine0': 
-                    self.recursivelyOpen(i+8)
+                    self.playerBoard.open(i-self.size,self.board.squares[i-self.size].image)
+        if (i+self.size<=63):
+            if not self.playerBoard.squares[i+self.size].open:
+                if self.board.squares[i+self.size].image == 'mine0': 
+                    self.recursivelyOpen(i+self.size)
                 else:
-                    self.playerBoard.open(i+8,self.board.squares[i+8].image)
+                    self.playerBoard.open(i+self.size,self.board.squares[i+self.size].image)
                 
-        if (i) % 8 != 0:
+        if (i) % self.size != 0:
             if i>0:
                 if not self.playerBoard.squares[i-1].open:
                     if self.board.squares[i-1].image == 'mine0':
@@ -51,21 +52,21 @@ class Game:
                     else:
                         self.playerBoard.open(i-1,self.board.squares[i-1].image)
 
-            if i-8>0:
-                if not self.playerBoard.squares[i-9].open:
-                    if self.board.squares[i-9].image == 'mine0': 
-                        self.recursivelyOpen(i-9)
+            if i-self.size>0:
+                if not self.playerBoard.squares[i-self.size+1].open:
+                    if self.board.squares[i-self.size+1].image == 'mine0': 
+                        self.recursivelyOpen(i-self.size+1)
                     else:
-                        self.playerBoard.open(i-9,self.board.squares[i-9].image)
+                        self.playerBoard.open(i-self.size+1,self.board.squares[i-self.size+1].image)
 
             if i+7<63:
-                if not self.playerBoard.squares[i+7].open:
-                    if self.board.squares[i+7].image == 'mine0':
-                        self.recursivelyOpen(i+7)
+                if not self.playerBoard.squares[i+self.size-1].open:
+                    if self.board.squares[i+self.size-1].image == 'mine0':
+                        self.recursivelyOpen(i+self.size-1)
                     else:
-                        self.playerBoard.open(i+7,self.board.squares[i+7].image)
+                        self.playerBoard.open(i+self.size-1,self.board.squares[i+self.size-1].image)
 
-        if (i) % 8 != 7:
+        if (i) % self.size != 7:
             if i<63:
                 if not self.playerBoard.squares[i+1].open:
                     if self.board.squares[i+1].image == 'mine0':
@@ -73,19 +74,19 @@ class Game:
                     else:
                         self.playerBoard.open(i+1,self.board.squares[i+1].image)
 
-            if i-6>0:
-                if not self.playerBoard.squares[i-7].open:
-                    if self.board.squares[i-7].image == 'mine0': 
-                        self.recursivelyOpen(i-7)
+            if i-self.size-2>0:
+                if not self.playerBoard.squares[i-self.size-1].open:
+                    if self.board.squares[i-self.size-1].image == 'mine0': 
+                        self.recursivelyOpen(i-self.size-1)
                     else:
-                        self.playerBoard.open(i-7,self.board.squares[i-7].image)
+                        self.playerBoard.open(i-self.size-1,self.board.squares[i-self.size-1].image)
 
-            if i+9<63:
-                if not self.playerBoard.squares[i+9].open:
-                    if self.board.squares[i+9].image == 'mine0': 
-                        self.recursivelyOpen(i+9)
+            if i+self.size+1<63:
+                if not self.playerBoard.squares[i+self.size+1].open:
+                    if self.board.squares[i+self.size+1].image == 'mine0': 
+                        self.recursivelyOpen(i+self.size+1)
                     else:
-                        self.playerBoard.open(i+9,self.board.squares[i+9].image)
+                        self.playerBoard.open(i+self.size+1,self.board.squares[i+self.size+1].image)
 
     def flag(self,id):
         if self.playerBoard.squares[id].image == 'square':
