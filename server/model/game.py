@@ -10,7 +10,7 @@ class Game:
         self.board = Board(id)
         self.playerBoard = PlayerBoard(id)
         self.boardSize = Game.size * Game.size
-        Board.size = self.boardSize
+        Board.size = self.size
         Board.maxMines = Game.maxMines
         PlayerBoard.size = self.boardSize
         self.initialize()
@@ -18,7 +18,7 @@ class Game:
     def initialize(self):
         self.gameOver = False
         self.playerBoard.flags = Game.maxMines
-        self.playerBoard.remaining = self.boardSize-Game.maxMines
+        self.playerBoard.remainingCells = self.boardSize-Game.maxMines
         self.board.initialize()
         self.playerBoard.initialize()
 
@@ -97,11 +97,6 @@ class Game:
             self.playerBoard.unflag(id)
 
     def getPlayerInfo(self):
-        #return remaining flags
-        #self.playerBoard.flags
-        #return remaining cells
-        #self.playerBoard.remaining
-        #return gameOver
         if self.gameOver:
             return self.board
         return self.playerBoard
