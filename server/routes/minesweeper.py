@@ -1,23 +1,22 @@
 
 from flask import jsonify
 from server import app
-from server import board
+from server import game
 from flask_cors import cross_origin
 
-@app.route("/minesweeper/initialize")
+@app.route("/minesweeper/board")
 @cross_origin()
 def initialize():
-    board.initialize()
-    return jsonify(board.toJson())
+    return jsonify(game.getPlayerInfo().toJson())
 
 @app.route("/minesweeper/<int:id>/open", methods=['POST'])
 @cross_origin()
 def open(id):
-    board.open(id)
-    return jsonify("{'success':true }")
+    game.open(id)
+    return jsonify(game.getPlayerInfo().toJson())
 
 @app.route("/minesweeper/<int:id>/flag", methods=['POST'])
 @cross_origin()
 def flag(id):
-    board.flag(id)
-    return jsonify("{'success':true }")
+    game.flag(id)
+    return jsonify(game.getPlayerInfo().toJson())

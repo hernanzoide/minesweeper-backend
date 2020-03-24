@@ -1,12 +1,12 @@
 import os
 from flask import Flask, abort, session, request, redirect
 from flask_cors import CORS, cross_origin
-from server.model.board import Board
+from server.model.game import Game
 
 app = Flask(__name__, template_folder="../public", static_folder="../public", static_url_path='')
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-board = Board('1')
+game = Game('1')
 
 from server.routes import *
 from server.services import *

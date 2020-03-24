@@ -2,14 +2,9 @@ import json
 
 class Square:
 
-    id = 0
-    image = 'square'
-    open = False
-
-
-    def __init__(self, id=None):
+    def __init__(self, id, image):
         self.id = id
-        self.image = 'square'
+        self.image = image
         self.open = False
 
     def toJson(self):
