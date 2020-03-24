@@ -10,11 +10,12 @@ class PlayerBoard:
     def __init__(self, ownerId=None):
         self.ownerId = ownerId
         self.squares = []
-        self.flags = self.maxMines
-        self.remainingCells = self.size-self.maxMines
+        self.flags = PlayerBoard.maxMines
+        self.remainingCells = PlayerBoard.size-PlayerBoard.maxMines
 
     def initialize(self):
         self.squares = []
+        self.flags = self.maxMines
         for x in range(self.size):
             square = Square(x,'square')
             self.squares.append(square)
@@ -24,7 +25,6 @@ class PlayerBoard:
             self.remainingCells-=1
             self.squares[id].open = True
             self.squares[id].image = image
-            
 
     def flag(self,id):
         if self.flags>0 and self.squares[id].image == 'square' :
@@ -47,16 +47,16 @@ class Board():
         self.ownerId = ownerId
         self.squares = []
         self.mineIndex = []
-        self.boardSize = self.size * self.size
+        self.boardSize = Board.size * Board.size
          
     def initialize(self):
         self.squares = []
-        for x in range(self.size):
+        for x in range(self.boardSize):
             self.squares.append(Square(x,'mine0'))
-        self.mineIndex = random.sample(range(0, self.size-1), self.maxMines)
+        self.mineIndex = random.sample(range(0, self.boardSize-1), self.maxMines)
         for i in self.mineIndex:
             self.squares[i] = Square(i,'mine')
-        for x in range(self.size):
+        for x in range(self.boardSize):
             if self.squares[x].image != 'mine':
                 self.squares[x] = Square(x,'mine'+str(self.countMines(x)))
 
@@ -73,7 +73,7 @@ class Board():
                 if (self.squares[i-1].image == 'mine'):
                     count+=1
             if i-self.size>0:
-                if (self.squares[i-self.size+1].image == 'mine'):
+                if (self.squares[i-self.size-1].image == 'mine'):
                     count+=1
             if i+self.size-1<self.boardSize-1:
                 if (self.squares[i+self.size-1].image == 'mine'):
@@ -83,10 +83,10 @@ class Board():
                 if (self.squares[i+1].image == 'mine'):
                     count+=1
             if i-self.size-2>0:
-                if (self.squares[i-self.size-1].image == 'mine'):
+                if (self.squares[i-self.size+1].image == 'mine'):
                     count+=1
             if i+self.size+1<self.boardSize-1:
-                if (self.squares[i+selfSize+1].image == 'mine'):
+                if (self.squares[i+self.size+1].image == 'mine'):
                     count+=1
         return count
 
