@@ -1,39 +1,29 @@
-# minesweeper-API
+# minesweeper-backend
 API test
 
-We ask that you complete the following challenge to evaluate your development skills. Please use the programming language and framework discussed during your interview to accomplish the following task.
+Backend REST api for Minesweeper game. Based on IBM Flask Python starter project: https://github.com/IBM/python-flask-app. The reason for using this project was I was optimistic about being able to implement more feature and project structure was suitable for having multiple services for game operations, data storage, time tracking and others
 
-PLEASE DO NOT FORK THE REPOSITORY. WE NEED A PUBLIC REPOSITORY FOR THE REVIEW. 
+## Controllers
 
-## The Game
-Develop the classic game of [Minesweeper](https://en.wikipedia.org/wiki/Minesweeper_(video_game))
+Added minesweeper controller with 3 simple operations:
 
-## Show your work
+1. initialize: Initializes the board for the player to start working. 
+2. open: Takes the cell id as parameter. Opens the cell and updates the whole board according to minesweeper rules
+3. flag: Flags or unflags the cell
 
-1.  Create a Public repository ( please dont make a pull request, clone the private repository and create a new plublic one on your profile)
-2.  Commit each step of your process so we can follow your thought process.
+## Model
 
-## What to build
-The following is a list of items (prioritized from most important to least important) we wish to see:
-* Design and implement  a documented RESTful API for the game (think of a mobile app for your API)
-* Implement an API client library for the API designed above. Ideally, in a different language, of your preference, to the one used for the API
-* When a cell with no adjacent mines is revealed, all adjacent squares will be revealed (and repeat)
-* Ability to 'flag' a cell with a question mark or red flag
-* Detect when game is over
-* Persistence
-* Time tracking
-* Ability to start a new game and preserve/resume the old ones
-* Ability to select the game parameters: number of rows, columns, and mines
-* Ability to support multiple users/accounts
- 
-## Deliverables we expect:
-* URL where the game can be accessed and played (use any platform of your preference: heroku.com, aws.amazon.com, etc)
-* Code in a public Github repo
-* README file with the decisions taken and important notes
+Game: Handles game variables. Manages two boards one for the values hidden and other to show to the player
+Board: Used to store the values under the hidden cells
+PlayerBoard: Used to store the values the player sees. Implements the basic operations for the user.
+Square: A cell in the board. Keeps the state accordingly
 
-## Time Spent
-You do not need to fully complete the challenge. We suggest not to spend more than 5 hours total, which can be done over the course of 2 days.  Please make commits as often as possible so we can see the time you spent and please do not make one commit.  We will evaluate the code and time spent.
- 
-What we want to see is how well you handle yourself given the time you spend on the problem, how you think, and how you prioritize when time is insufficient to solve everything.
+Sizes for the boards are class attributes so they can be resized before instanciation. Should be used inside a service but there was no time for that.
 
-Please email your solution as soon as you have completed the challenge or the time is up.
+## Future work
+
+My focus was on having a deliverable according to expected. Since features were optional I prioritized deployment over the implementation of more features.
+
+1. Create service for handling games to allow multiple. Games use owner id in constructor so we could use it to retrieve the game for a specific player from the data storage in the future.
+2. Create services for time tracking and user managing
+3. Add persistence
