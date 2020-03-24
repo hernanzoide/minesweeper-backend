@@ -1,5 +1,4 @@
 # minesweeper-backend
-API test
 
 Backend REST api for Minesweeper game. Based on IBM Flask Python starter project: https://github.com/IBM/python-flask-app. The reason for using this project was I was optimistic about being able to implement more feature and project structure was suitable for having multiple services for game operations, data storage, time tracking and others
 
