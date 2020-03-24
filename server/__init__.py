@@ -1,8 +1,12 @@
 import os
 from flask import Flask, abort, session, request, redirect
-from flask.json import jsonify
+from flask_cors import CORS, cross_origin
+from server.model.board import Board
 
 app = Flask(__name__, template_folder="../public", static_folder="../public", static_url_path='')
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+board = Board('1')
 
 from server.routes import *
 from server.services import *

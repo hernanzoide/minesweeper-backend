@@ -1,6 +1,12 @@
+from server.model.board import Board
+
+board = Board()
+
 class Game:
 
-    board 
+    gameOver = False
+    mines = 9
+    flags = 9
 
     def __init__(self):
-        board = Board()
+        self.gameOver = False

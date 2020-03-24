@@ -4,18 +4,19 @@ import json
 class Board:
 
     size = 64
-    squares = []
 
-    def __init__(self, id=None):
-        squares = []
+    def __init__(self, ownerId=None):
+        self.ownerId = ownerId
+        self.squares = []
 
     def initialize(self):
-        squares = []
-        for x in range(self.size):
-            square = Square(x)
-            squares.append(square)
+        if (len(self.squares)==0):
+            for x in range(self.size):
+                square = Square(x)
+                self.squares.append(square)
 
     def open(self,id):
+        self.squares[id].image = 'open'
         self.squares[id].open = True
 
     def flag(self,id):
