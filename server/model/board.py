@@ -68,7 +68,7 @@ class Board():
         if (i+self.size<=self.boardSize-1):
             if (self.squares[i+self.size].image == 'mine'):
                 count+=1
-        if (i) % self.size != 0:
+        if (i % self.size) != 0:
             if i>0:
                 if (self.squares[i-1].image == 'mine'):
                     count+=1
@@ -78,11 +78,11 @@ class Board():
             if i+self.size-1<self.boardSize-1:
                 if (self.squares[i+self.size-1].image == 'mine'):
                     count+=1
-        if (i) % self.size != self.size-1:
+        if (i % self.size) != self.size-1:
             if i<self.boardSize-1:
                 if (self.squares[i+1].image == 'mine'):
                     count+=1
-            if i-self.size-2>0:
+            if i-self.size+1>0:
                 if (self.squares[i-self.size+1].image == 'mine'):
                     count+=1
             if i+self.size+1<self.boardSize-1:
